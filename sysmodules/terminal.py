@@ -13,7 +13,7 @@ class Module(moduling.Module):
 
     async def run(self, message, cmd):
         sh = await asyncio.create_subprocess_shell(cmd, stdout=asyncio.subprocess.PIPE)
-        await utils.send(message, "<b>Process is running...</b>")
+        await message.edit(f"<b>Running command: </b><code>{utils.escape_html(cmd)}</code>\n<b>Status code: \n\nOutput:")
         await sh.wait()
 
         out = (await sh.stdout.read())
@@ -25,10 +25,7 @@ class Module(moduling.Module):
         else:
             stdout = out.decode(enc)
 
-        await utils.send(message, "<b>Command: </b><code>{}</code>\n<b>Status code: </b><code>{}</code>\n\n<b>Output:</b>\n<code>{}</code>".format(utils.escape_html(cmd), sh.returncode, utils.escape_html(stdout)))
-
-    async def neofetch_cmd(self, client, message, cmd):
-        await self.run(message, "neofetch --stdout")
+        await message.edit("<b>Running command: </b><code>{}</code>\n<b>Status code: </b><code>{}</code>\n\n<b>Output:</b>\n<code>{}</code>".format(utils.escape_html(cmd), sh.returncode, utils.escape_html(stdout)))
 
     async def terminal_cmd(self, client, message, cmd):
         await self.run(message, cmd.arg)

@@ -15,7 +15,7 @@ from tinydb import Query, TinyDB
 import moduling
 import utils
 
-GIT_MASTER = "https://github.com/MaxUNof/unknown-telegram.git"
+GIT_MASTER = "https://github.com/m4xx1m/unknown-telegram.git"
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 

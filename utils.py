@@ -23,9 +23,8 @@ async def send(message, content, **kwargs):
             pass
         return res
     if isinstance(content, str) and not kwargs.get("force_file", False):
-        myID = (await message.client.get_me(True)).user_id
         text, entities = html.parse(content)
-        if message.from_id != myID:
+        if message.sender_id != (await message.client.get_me()).id:
             await message.reply(html.unparse(text[:4096], entities))
         else:
             await message.edit(html.unparse(text[:4096], entities))
