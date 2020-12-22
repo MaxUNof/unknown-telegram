@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
-# Coded by @maxunof with power of Senko!
+# by @m4xx1m
+# regex - @D4n13l3k00
 
+import re
 
 class Command():
     def __init__(self, text):
-        self.full = ""
-        self.cmd = ""
+        cm = re.compile(r"^\.(.*)\d*")
         self.arg = ""
+        self.cmd = ""
         self.args = []
-        if text.startswith("."):
-            self.full = text[1:]
-            split = self.full.split(" ", 1)
-            self.cmd = split[0]
-            if len(split) > 1:
-                self.arg = split[1]
-                self.args = self.arg.split(" ")
+        if not bool(cm.findall(text)):
+            return
+        self.cmd = cm.findall(text)[0]
+        self.arg = cm.sub("", text)
+        self.args = self.arg.split(" ")
+            
+            
